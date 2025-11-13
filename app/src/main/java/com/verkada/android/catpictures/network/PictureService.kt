@@ -1,6 +1,7 @@
 package com.verkada.android.catpictures.network
 
 import com.verkada.android.catpictures.data.Picture
+import okhttp3.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
