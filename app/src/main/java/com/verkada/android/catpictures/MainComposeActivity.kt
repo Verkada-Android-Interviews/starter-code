@@ -15,7 +15,7 @@ class MainComposeActivity : ComponentActivity() {
 
         setContent {
             CatPicturesTheme {
-                GallerScreen(viewModel)
+                GalleryScreen(viewModel)
             }
         }
     }
