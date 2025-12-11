@@ -1,16 +1,19 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id "com.google.protobuf" version "0.8.17"
+    id "com.google.protobuf" version "0.9.5"
+    id 'org.jetbrains.kotlin.plugin.compose'
 }
 
 android {
-    compileSdk 33
+    compileSdk 36
 
     defaultConfig {
         applicationId "com.verkada.android.catpictures"
         minSdk 23
-        targetSdk 33
+        targetSdk 36
         versionCode 1
         versionName "1.0"
 
@@ -26,6 +29,7 @@ android {
     buildFeatures {
         viewBinding = true
         compose = true
+        buildConfig = true
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -34,9 +38,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    namespace 'com.verkada.android.catpictures'
 }
 
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+tasks.withType(KotlinCompile).configureEach {
     kotlinOptions {
         freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
     }
@@ -44,49 +49,49 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.10.1'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.9.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation "androidx.datastore:datastore:1.0.0"
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    implementation 'androidx.core:core-ktx:1.17.0'
+    implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation 'com.google.android.material:material:1.13.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
+    implementation "androidx.datastore:datastore:1.2.0"
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.3.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.7.0'
 
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
-    implementation 'androidx.activity:activity-compose:1.7.1'
-    implementation 'androidx.activity:activity-ktx:1.7.1'
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.6.1"
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.10.0'
+    implementation 'androidx.activity:activity-compose:1.12.1'
+    implementation 'androidx.activity:activity-ktx:1.12.1'
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.10.0"
 
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.0"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2"
 
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    implementation 'com.google.code.gson:gson:2.9.0'
-    implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.9'
+    implementation 'com.squareup.retrofit2:retrofit:3.0.0'
+    implementation 'com.squareup.retrofit2:converter-gson:3.0.0'
+    implementation 'com.google.code.gson:gson:2.13.2'
+    implementation 'com.squareup.okhttp3:okhttp:5.3.2'
 
-    implementation 'com.xwray:groupie:2.9.0'
-    implementation 'com.xwray:groupie-viewbinding:2.9.0'
-    implementation "io.coil-kt:coil:2.3.0"
-    implementation "io.coil-kt:coil-compose:2.3.0"
+    implementation 'com.github.lisawray.groupie:groupie:2.10.1'
+    implementation 'com.github.lisawray.groupie:groupie-viewbinding:2.10.1'
+    implementation "io.coil-kt:coil:2.7.0"
+    implementation "io.coil-kt:coil-compose:2.7.0"
 
     // compose
-    implementation "androidx.compose.ui:ui:1.5.0-alpha04"
+    implementation "androidx.compose.ui:ui:1.10.0"
     // Tooling support (Previews, etc.)
-    implementation "androidx.compose.ui:ui-tooling:1.4.3"
+    implementation "androidx.compose.ui:ui-tooling:1.10.0"
     // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
-    implementation "androidx.compose.foundation:foundation:1.5.0-alpha04"
+    implementation "androidx.compose.foundation:foundation:1.10.0"
     // Material Design
-    implementation "androidx.compose.material:material:1.4.3"
+    implementation "androidx.compose.material:material:1.10.0"
     // Material design icons
     // Integration with activities
-    implementation 'androidx.activity:activity-compose:1.7.1'
+    implementation 'androidx.activity:activity-compose:1.12.1'
     // Integration with ViewModels
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.10.0'
     // Integration with observables
-    implementation "androidx.compose.runtime:runtime-livedata:1.4.3"
-    implementation "androidx.compose.runtime:runtime-rxjava2:1.4.3"
+    implementation "androidx.compose.runtime:runtime-livedata:1.10.0"
+    implementation "androidx.compose.runtime:runtime-rxjava2:1.10.0"
 }
 
 protobuf {
@@ -94,7 +99,7 @@ protobuf {
         artifact = "com.google.protobuf:protoc:3.19.4"
     }
 
-    // Generates the java Protobuf-lite code for the Protobufs in this project. See
+    // Generates the java Protobuf-lite code for the Protobuf in this project. See
     // https://github.com/google/protobuf-gradle-plugin#customizing-protobuf-compilation
     // for more information.
     generateProtoTasks {
